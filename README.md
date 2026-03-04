@@ -20,12 +20,12 @@ Every developer has pulled down a project, run `npm run dev`, and watched it cra
 Simply run this command in the root of your project:
 
 ```bash
-npx env-doctor
+npx @dinakars777/env-doctor
 ```
 
 Or install it globally:
 ```bash
-npm install -g env-doctor
+npm install -g @dinakars777/env-doctor
 env-doctor
 ```
 
@@ -40,7 +40,7 @@ env-doctor
 
 You can specify custom paths for your environment files:
 ```bash
-npx env-doctor --example .env.template --env .env.local
+npx @dinakars777/env-doctor --example .env.template --env .env.local
 ```
 
 ## Contributing
