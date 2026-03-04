@@ -2,7 +2,7 @@
 
 > A beautiful, interactive CLI to diagnose and fix missing local environment variables.
 
-![env-doctor screenshot](./screenshot.png) *(Imagine a beautiful clack-based terminal here)*
+> *(A beautiful, interactive CLI built with `@clack/prompts`)*
 
 ## The Problem
 Every developer has pulled down a project, run `npm run dev`, and watched it crash because they are missing a variable in their `.env` file that another developer added, but forgot to tell them about. 
