@@ -1,0 +1,29 @@
+{
+  "name": "env-doctor",
+  "version": "1.0.0",
+  "description": "A beautiful, interactive CLI to validate local .env files against .env.example templates.",
+  "main": "dist/index.js",
+  "bin": {
+    "env-doctor": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --clean",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["cli", "env", "dotenv", "environment", "variables", "checker", "validator", "interactive"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "commander": "^12.0.0",
+    "dotenv": "^16.4.5",
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}
