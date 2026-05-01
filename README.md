@@ -10,10 +10,10 @@ You pulled down a project, ran `npm run dev`, and it crashed because someone add
 
 ## Features
 
-- ✨ Zero configuration — just run it in your project root
-- 🎨 Beautiful UI powered by `@clack/prompts` and `picocolors`
-- 🛡️ Non-destructive — appends new keys without touching existing ones
-- ⚡ Extremely fast with minimal dependencies
+- ✨ Zero config
+- 🎨 Clean UI via `@clack/prompts` and `picocolors`
+- 🛡️ Non-destructive — appends without touching existing keys
+- ⚡ Fast with minimal dependencies
 
 ## Quick Start
 
