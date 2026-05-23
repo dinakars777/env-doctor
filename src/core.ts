@@ -11,6 +11,9 @@ export interface EnvDiff {
     emptyValues: string[];
 }
 
+const ENV_ASSIGNMENT_PATTERN = /^\s*(?:export\s+)?([\w.-]+)\s*=/;
+const NEEDS_QUOTING_PATTERN = /(^\s|\s$|#|\n|\r)/;
+
 /**
  * Reads and parses a .env or .env.example file.
  * Returns an object with key-value pairs.
@@ -50,21 +53,17 @@ export function compareEnvFiles(expected: EnvVariables, actual: EnvVariables): E
  */
 export function appendToEnvFile(filePath: string, newVars: EnvVariables): void {
     const fullPath = path.resolve(process.cwd(), filePath);
+    const replacementKeys = new Set(Object.keys(newVars));
 
     let content = '';
     if (fs.existsSync(fullPath)) {
         content = fs.readFileSync(fullPath, 'utf-8');
 
-        // Remove existing empty definitions for the keys we are about to update
+        // Remove existing definitions for keys we are replacing.
         const lines = content.split('\n');
         const updatedLines = lines.filter(line => {
-            for (const key of Object.keys(newVars)) {
-                // If the line is an exact match for the key we are replacing (usually empty), filter it out
-                if (line.trim().startsWith(`${key}=`)) {
-                    return false;
-                }
-            }
-            return true;
+            const key = getAssignedKey(line);
+            return !key || !replacementKeys.has(key);
         });
 
         content = updatedLines.join('\n');
@@ -76,8 +75,33 @@ export function appendToEnvFile(filePath: string, newVars: EnvVariables): void {
     }
 
     for (const [key, value] of Object.entries(newVars)) {
-        content += `${key}=${value}\n`;
+        content += `${key}=${formatEnvValue(value)}\n`;
     }
 
     fs.writeFileSync(fullPath, content, 'utf-8');
+}
+
+function getAssignedKey(line: string): string | null {
+    const match = line.match(ENV_ASSIGNMENT_PATTERN);
+    return match ? match[1] : null;
+}
+
+function formatEnvValue(value: string): string {
+    if (!NEEDS_QUOTING_PATTERN.test(value)) {
+        return value;
+    }
+
+    if (!value.includes('"')) {
+        const escaped = value
+            .replace(/\n/g, '\\n')
+            .replace(/\r/g, '\\r');
+
+        return `"${escaped}"`;
+    }
+
+    if (!value.includes("'")) {
+        return `'${value}'`;
+    }
+
+    throw new Error('Cannot safely write .env value containing both single and double quotes.');
 }
