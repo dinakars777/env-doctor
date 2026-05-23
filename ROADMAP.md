@@ -12,6 +12,7 @@ Recent repository fixes:
 - PR #2 added core tests and fixed `.env` writes so values containing `#`, leading or trailing spaces, multiline content, or embedded double quotes round-trip through `dotenv`.
 - PR #3 added package publish controls so `npm pack` builds first and ships only runtime files.
 - PR #4 added GitHub Actions CI for clean install, tests, typecheck, build, audit, and package dry-run.
+- PR #6 updated the CI workflow to current `actions/checkout` and `actions/setup-node` major versions after GitHub reported a Node.js 20 action-runtime deprecation warning.
 
 The current verification set is:
 
