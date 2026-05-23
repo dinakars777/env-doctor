@@ -6,9 +6,14 @@
   "bin": {
     "env-doctor": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs --clean",
     "dev": "ts-node src/index.ts",
+    "prepack": "npm run build",
     "test": "node --test test/*.test.cjs",
     "typecheck": "tsc --noEmit",
     "start": "node dist/index.js"
